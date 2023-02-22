@@ -7,7 +7,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Register - Periyar EVR Central Library</title>
+    <title>Login - Periyar EVR Central Library</title>
 
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
@@ -16,61 +16,33 @@
     <script type="text/javascript">
     $(document).ready(function() {
 
-        $("#register").click(function() {
+        $("#login").click(function() {
 
-            fname = $("#fname").val();
-            lname = $("#lname").val();
             email = $("#email").val();
             password = $("#password").val();
-
             $.ajax({
                 type: "POST",
-                url: "adduser.php",
-                data: "fname=" + fname + "&lname=" + lname + "&email=" + email + "&password=" +
-                    password,
+                url: "pcheck.php",
+                data: "email=" + email + "&password=" + password,
                 success: function(html) {
                     if (html == 'true') {
 
                         $("#add_err2").html('<div class="alert alert-success"> \
-                                                 <strong>Account</strong> processed. \ \
-                                                 </div>');
+													<strong>Authenticated</strong> \ \
+												</div>');
 
-                        window.location.href = "index.php";
+                        window.location.href = "blog.php";
 
                     } else if (html == 'false') {
                         $("#add_err2").html('<div class="alert alert-danger"> \
-                                                 <strong>Email Address</strong> already in system. \ \
-                                                 </div>');
+													<strong>Authentication</strong> failure. \ \
+												</div>');
 
-                    } else if (html == 'fname') {
-                        $("#add_err2").html('<div class="alert alert-danger"> \
-                                                 <strong>First Name</strong> is required. \ \
-                                                 </div>');
-
-                    } else if (html == 'lname') {
-                        $("#add_err2").html('<div class="alert alert-danger"> \
-                                                 <strong>Last Name</strong> is required. \ \
-                                                 </div>');
-
-                    } else if (html == 'eshort') {
-                        $("#add_err2").html('<div class="alert alert-danger"> \
-                                                 <strong>Email Address</strong> is required. \ \
-                                                 </div>');
-
-                    } else if (html == 'eformat') {
-                        $("#add_err2").html('<div class="alert alert-danger"> \
-                                                 <strong>Email Address</strong> format is not valid. \ \
-                                                 </div>');
-
-                    } else if (html == 'pshort') {
-                        $("#add_err2").html('<div class="alert alert-danger"> \
-                                                 <strong>Password</strong> must be at least 4 characters . \ \
-                                                 </div>');
 
                     } else {
                         $("#add_err2").html('<div class="alert alert-danger"> \
-                                                 <strong>Error</strong> processing request. Please try again. \ \
-                                                 </div>');
+													<strong>Error</strong> processing request. Please try again. \ \
+												</div>');
                     }
                 },
                 beforeSend: function() {
@@ -97,22 +69,15 @@
         <div class="row">
             <div class="box div-rounded">
                 <div class="col-lg-12">
+                    <div class="alert alert-danger"><strong>You must be logged in to view the blog.</strong></div>
                     <hr />
                     <h2 class="intro-text text-center">
-                        <strong>Register</strong>
+                        <strong>Login</strong>
                     </h2>
                     <hr />
                     <div id="add_err2"></div>
                     <form role="form">
                         <div class="row">
-                            <div class="form-group col-lg-4">
-                                <label>First Name</label>
-                                <input type="text" id="fname" name="name" maxlength="25" class="form-control" />
-                            </div>
-                            <div class="form-group col-lg-4">
-                                <label>Last Name</label>
-                                <input type="text" id="lname" name="lname" maxlength="25" class="form-control" />
-                            </div>
                             <div class="form-group col-lg-4">
                                 <label>Email Address</label>
                                 <input type="email" id="email" name="email" maxlength="50" class="form-control" />
@@ -121,15 +86,20 @@
                                 <label>Password</label>
                                 <input type="password" id="password" name="password" maxlength="10"
                                     class="form-control">
-                            </div>
+                            </div><br>
                             <div class="form-group col-lg-12">
-                                <button type="submit" class="btn btn-default" id="register">Submit</button>
+                                <button type="submit" class="btn btn-default" id="login">Login</button>
                             </div>
                         </div>
                     </form>
                 </div>
+                <div class="form-group col-lg-6">
+                    <a href="register.php"><button class="btn btn-default">New
+                            Registration</button></a>
+                </div>
             </div>
         </div>
+    </div>
     </div>
     <footer>
         <div class="container rounded">
